@@ -29,14 +29,17 @@ LABEL org.label-schema.vendor="Evercity" \
 
 ENV USER="node"
 
-RUN apt update && \
-    addgroup --gecos "" --gid 2000 $USER && \
-    adduser --gecos "" --gid 2000 --shell /bin/sh --disabled-login --disabled-password $USER
+#RUN apt update && \
+#    addgroup --gecos "" --gid 2000 $USER && \
+#    adduser --gecos "" --gid 2000 --shell /bin/sh --disabled-login --disabled-password $USER
 
-USER $USER
+#USER $USER
 WORKDIR /home/$USER
 
-COPY --chown=$USER:$USER --from=source ["/home/source/target/release", "/home/$USER/"]
+#COPY --chown=$USER:$USER --from=source ["/home/source/target/release", "/home/$USER/"]
+#RUN mkdir /home/$USER/chain && chown 999 /home/$USER
+
+COPY --from=source ["/home/source/target/release", "/home/$USER/"]
 RUN mkdir /home/$USER/chain
 
 EXPOSE 9944 9615 9933 30300
